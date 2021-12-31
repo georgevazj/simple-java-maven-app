@@ -1,10 +1,12 @@
 pipeline {
   agent any
   stages {
-    stage('Verificación SCM') {
+    stage('Verificar SCM') {
       steps {
-        sh 'echo "Hola Mundo"'
-        echo 'Hola mundo'
+        sh 'checkout scm'
+        sh 'git rev-parse --short HEAD > .git/commit-id'
+        sh 'gitcommit = readFile(\'.git/commit-id\').trim()'
+        sh 'echo $gitcommit'
       }
     }
 
